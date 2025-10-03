@@ -59,10 +59,7 @@ function App() {
     <div className={styles.App}>
       <header className={styles.Header}>
         <h1>Управление пользователями</h1>
-        <button
-          onClick={() => setShowForm(true)}
-          disabled={showForm}
-        >
+        <button onClick={() => setShowForm(true)} disabled={showForm}>
           Добавить пользователя
         </button>
       </header>
@@ -76,9 +73,7 @@ function App() {
           />
         ) : (
           <>
-            <div>
-              Всего пользователей: {allUsers.length}
-            </div>
+            <div>Всего пользователей: {allUsers.length}</div>
 
             <UserTable
               users={users}
