@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { UserForm } from "./components";
-import { UserTable } from "./components";
-import { Pagination } from "./components";
+
+import { UserForm, UserTable, Pagination } from "./components";
 import { useUsers } from "./api/api";
 import type { User, UserFormData } from "./api/types";
 import styles from "./App.module.css";
 
+/**
+ * Главная.
+ */
 function App() {
   const {
     users,

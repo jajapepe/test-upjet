@@ -12,7 +12,6 @@ interface UserTableProps {
  * @param users - список пользователей.
  * @param onEdit - функция редактирования пользователя.
  * @param onDelete - функция удаления пользователя.
- * @returns
  */
 export function UserTable({ users, onEdit, onDelete }: UserTableProps) {
   if (users.length === 0) {
