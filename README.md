@@ -38,3 +38,7 @@ npm run dev
 Форма
 
 ![Форма](public/forgit-form.png)
+
+## Деплой
+
+https://jajapepe.github.io/test-upjet/
