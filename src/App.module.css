@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  gap: 20px;
+  overflow-x: hidden;
+}
+
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Main {
+  margin-bottom: 30px;
+}

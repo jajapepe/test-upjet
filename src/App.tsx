@@ -1,35 +1,101 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { UserForm } from "./components";
+import { UserTable } from "./components";
+import { Pagination } from "./components";
+import { useUsers } from "./api/api";
+import type { User, UserFormData } from "./api/types";
+import styles from "./App.module.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    users,
+    allUsers,
+    createUser,
+    updateUser,
+    deleteUser,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+  } = useUsers();
+
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [showForm, setShowForm] = useState(false);
+
+  // Создать пользователя.
+  const handleCreateUser = (userData: UserFormData) => {
+    createUser(userData);
+    setShowForm(false);
+  };
+
+  // Обновить пользователя.
+  const handleUpdateUser = (userData: UserFormData) => {
+    if (editingUser) {
+      updateUser(editingUser.id, userData);
+      setEditingUser(null);
+      setShowForm(false);
+    }
+  };
+
+  // Отоборазить форму редактирования пользователя.
+  const handleEdit = (user: User) => {
+    setEditingUser(user);
+    setShowForm(true);
+  };
+
+  // Удалить пользователя.
+  const handleDelete = (id: number) => {
+    if (confirm("Вы уверены, что хотите удалить этого пользователя?")) {
+      deleteUser(id);
+    }
+  };
+
+  // Закрыть форму создания/редактирвоания.
+  const handleCancel = () => {
+    setEditingUser(null);
+    setShowForm(false);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className={styles.App}>
+      <header className={styles.Header}>
+        <h1>Управление пользователями</h1>
+        <button
+          onClick={() => setShowForm(true)}
+          disabled={showForm}
+        >
+          Добавить пользователя
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </header>
+
+      <main className={styles.Main}>
+        {showForm ? (
+          <UserForm
+            user={editingUser}
+            onSubmit={editingUser ? handleUpdateUser : handleCreateUser}
+            onCancel={handleCancel}
+          />
+        ) : (
+          <>
+            <div>
+              Всего пользователей: {allUsers.length}
+            </div>
+
+            <UserTable
+              users={users}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </>
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;

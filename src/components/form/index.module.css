@@ -1,0 +1,33 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(80, 80, 80);
+  padding: 30px;
+  border: none;
+  border-radius: 20px;
+}
+
+.Input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.Input input,
+.Input select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.Actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
